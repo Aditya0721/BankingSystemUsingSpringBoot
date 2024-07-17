@@ -19,16 +19,16 @@ public class LoginServiceImpl implements LoginService {
     @Qualifier("loginRepositoryImpl2")
     private LoginRepository loginRepository;
 
-    @Autowired
-    @Qualifier("loginRepositoryImpl2")
-    public void setLoginRepository(LoginRepository loginRepository) {
-        this.loginRepository = loginRepository;
-    }
+//    @Autowired
+//    @Qualifier("loginRepositoryImpl2")
+//    public void setLoginRepository(LoginRepository loginRepository) {
+//        this.loginRepository = loginRepository;
+//    }
 
-    @Autowired
-    public LoginServiceImpl(@Qualifier("loginRepositoryImpl2")LoginRepository loginRepository) {
-        this.loginRepository = loginRepository;
-    }
+//    @Autowired
+//    public LoginServiceImpl(@Qualifier("loginRepositoryImpl2")LoginRepository loginRepository) {
+//        this.loginRepository = loginRepository;
+//    }
 
 
     @Override
