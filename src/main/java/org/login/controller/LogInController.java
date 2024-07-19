@@ -23,7 +23,7 @@ import java.util.ResourceBundle;
 
 @Controller
 public class LogInController {
-//    private LoginService loginService = new LoginServiceImpl(new LoginRepositoryImpl());
+    //    private LoginService loginService = new LoginServiceImpl(new LoginRepositoryImpl());
 //
     private File file = new File("src/main/java/org/login/messages.properties");
 
@@ -56,18 +56,17 @@ public class LogInController {
             throw new RuntimeException(e);
         }
 
-        System.out.println( this. filePath);
+        System.out.println(this.filePath);
 
         boolean isAuthenticated = loginService.login(loginDTOFromUserInterface);
-        if(isAuthenticated) {
+        if (isAuthenticated) {
             System.out.println(prop.getProperty("login.success.message"));
-        }
-        else{
+        } else {
             System.out.println(prop.getProperty("login.failure.message"));
         }
     }
 
-    public void updatePassword(LoginDTO loginDTO){
+    public void updatePassword(LoginDTO loginDTO) {
 
         loginService.updatePassword(loginDTO);
     }

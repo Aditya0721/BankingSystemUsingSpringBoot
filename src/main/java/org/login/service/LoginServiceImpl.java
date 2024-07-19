@@ -15,6 +15,7 @@ public class LoginServiceImpl implements LoginService {
     *3. use the data for your business logic
     *4. rerun it back to the controller class
     */
+
     @Autowired
     @Qualifier("loginRepositoryImpl2")
     private LoginRepository loginRepository;
