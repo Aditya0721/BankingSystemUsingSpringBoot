@@ -1,16 +1,8 @@
 package org.login.controller;
 
-import org.login.ApplicationConfig;
 import org.login.dto.LoginDTO;
-import org.login.repository.LoginRepository;
-import org.login.repository.LoginRepositoryImpl;
-import org.login.repository.LoginRepositoryImpl2;
 import org.login.service.LoginService;
-import org.login.service.LoginServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.io.File;
@@ -18,7 +10,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 
 @Controller
