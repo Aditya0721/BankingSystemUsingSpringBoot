@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.Environment;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Application {
@@ -42,6 +43,35 @@ public class Application {
         System.out.println("Update your new password");
         String updatePassword = sc.nextLine();
 
+        try{
+            System.out.println("Enter your number: ");
+            Integer number = sc.nextInt();
+
+            int b = number/0;
+
+            System.out.println("User entered an Integer");
+            int[] a = new int[10];
+            a[10] = 12;
+
+
+
+        }
+        catch(ArithmeticException e){
+            System.out.println("You are dividing by 0");
+        }
+        catch(ArrayIndexOutOfBoundsException e){
+            System.out.println("Array index out of bounds");
+        }
+        catch(InputMismatchException e){
+            System.out.println("You entered an invalid number");
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+            System.out.println("you have not entered an integer please enter an integer");
+        }
+        finally {
+            System.out.println("This piece of block should be executed no matter what- called finally");
+        }
         //ApplicationContext applicationContext = new AnnotationConfigApplicationContext(LoginConfig.class, RegistrationConfig.class);
 
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(ApplicationConfig.class);

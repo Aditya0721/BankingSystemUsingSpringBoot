@@ -13,6 +13,5 @@ public class LoginRepositoryImpl2 implements LoginRepository {
 
     public void updatePasswordUsingUsername(LoginDTO loginDTO){
         System.out.println("dummy testing");
-
     }
 }
