@@ -8,40 +8,35 @@ import org.registration.registarationDTO.RegistrationDTO;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.core.env.Environment;
+import org.springframework.stereotype.Component;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Application {
-    public static void main(String[] args) {
-        RegistrationDTO registrationDTO = new RegistrationDTO();
 
+
+    public static void loginUI(LoginDTO loginDTO){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Enter your first name");
-        registrationDTO.setFirstName(sc.nextLine());
-        System.out.println("Enter the last name");
-        registrationDTO.setLastName(sc.nextLine());
-        System.out.println("Enter the Mobile Number");
-        registrationDTO.setMobileNumber(sc.nextLine());
-        System.out.println("Enter the address");
-        registrationDTO.setAddress(sc.nextLine());
-        System.out.println("Enter an email id");
-        registrationDTO.setEmailID(sc.nextLine());
-        System.out.println("Enter the gender : M for male and F for female");
-        char gender = sc.next().charAt(0);
-        switch(gender){
-            case 'M': registrationDTO.setGender(Gender.MALE);
-            break;
-            case 'F': registrationDTO.setGender(Gender.FEMALE);
-        }
-        System.out.println(registrationDTO);
-
         System.out.println("Enter your name: ");
         String name = sc.nextLine();
         System.out.println("Enter your password: ");
         String password = sc.nextLine();
-        System.out.println("Update your new password");
-        String updatePassword = sc.nextLine();
+
+        loginDTO.setUsername(name);
+        loginDTO.setPassword(password);
+    }
+
+    public static void main(String[] args) {
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(ApplicationConfig.class);
+        Environment env = applicationContext.getEnvironment();
+
+        RegistrationDTO registrationDTO = applicationContext.getBean(RegistrationDTO.class);
+        RegistrationController registrationController = applicationContext.getBean(RegistrationController.class);
+
+        registrationController.getUserInput(registrationDTO);
+
+        Scanner sc = new Scanner(System.in);
 
         try{
             System.out.println("Enter your number: ");
@@ -74,27 +69,36 @@ public class Application {
         }
         //ApplicationContext applicationContext = new AnnotationConfigApplicationContext(LoginConfig.class, RegistrationConfig.class);
 
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(ApplicationConfig.class);
-        Environment env = applicationContext.getEnvironment();
         //JAVA BASED CONFIGURATION
 //        private LoginService loginService =  applicationContext.getBean("loginServiceImpl", LoginServiceImpl.class);
 
 //        private LoginRepository loginRepository = (LoginRepository) applicationContext.getBean("loginRepositoryImpl2");
 
-        LoginDTO loginDTO = new LoginDTO(name, password);
+//        RegistrationController registrationController = (RegistrationController) applicationContext.getBean("registrationController");
+        //RegistrationController registrationController1 = (RegistrationController) applicationContext.getBean("registrationController1");
+//        RegistrationController registrationController1 = applicationContext.getBean(RegistrationController.class);
+//        RegistrationController registrationController2 = applicationContext.getBean("registrationController", RegistrationController.class);
+        try{
+            registrationController.registration(registrationDTO);
 
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        finally {
+            registrationController.getUserData(registrationDTO);
+        }
+
+        LoginDTO loginDTO = new LoginDTO();
+
+        loginUI(loginDTO);
 
         LogInController logInController = applicationContext.getBean(LogInController.class);
 
         logInController.logIn(loginDTO);
-        logInController.updatePassword(new LoginDTO(name, updatePassword));
 
-
-        RegistrationController registrationController = (RegistrationController) applicationContext.getBean("registrationController");
-        //RegistrationController registrationController1 = (RegistrationController) applicationContext.getBean("registrationController1");
-////        RegistrationController registrationController1 = applicationContext.getBean(RegistrationController.class);
-//        RegistrationController registrationController2 = applicationContext.getBean("registrationController", RegistrationController.class);
-        registrationController.getUserDataFromUI(registrationDTO);
-        registrationController.getUserData(registrationDTO);
+        System.out.println("Update your new password");
+        String updatePassword = sc.nextLine();
+        logInController.updatePassword(new LoginDTO(loginDTO.getUsername(), updatePassword));
     }
 }

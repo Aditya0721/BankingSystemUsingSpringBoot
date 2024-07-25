@@ -1,5 +1,12 @@
 package org.registration.registarationDTO;
 
+import org.registration.exception.BankingSystemRegistrationException;
+import org.springframework.stereotype.Component;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+@Component
 public class RegistrationDTO {
     private String firstName;
     private String lastName;
@@ -40,8 +47,13 @@ public class RegistrationDTO {
         return mobileNumber;
     }
 
-    public void setMobileNumber(String mobileNumber) {
-        this.mobileNumber = mobileNumber;
+    public void setMobileNumber(String mobileNumber) throws BankingSystemRegistrationException{
+        if(this.validateMobileNumber(mobileNumber)){
+            this.mobileNumber = mobileNumber;
+        }
+        else{
+            throw new BankingSystemRegistrationException("\n Invalid mobile number, Please enter again. Please try again. \n");
+        }
     }
 
     public String getEmailID() {
@@ -66,5 +78,17 @@ public class RegistrationDTO {
 
     public void setGender(Gender gender) {
         this.gender = gender;
+    }
+
+    public boolean validateMobileNumber(String mobileNumber){
+        Pattern pattern = Pattern.compile("^\\d{10}$");
+        Matcher matcher = pattern.matcher(mobileNumber);
+
+        if(matcher.matches()){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 }
