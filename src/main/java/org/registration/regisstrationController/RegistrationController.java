@@ -1,5 +1,6 @@
 package org.registration.regisstrationController;
 
+import org.login.exceptions.BankingSystemLoginException;
 import org.registration.registarationDTO.Gender;
 import org.registration.registarationDTO.RegistrationDTO;
 import org.registration.registrationService.RegistrationService;
@@ -47,12 +48,18 @@ public class RegistrationController {
 
                         System.out.println("Enter the gender : M for male and F for female");
                         char gender = sc.next().charAt(0);
-                        switch (gender) {
-                                case 'M':
-                                        registrationDTO.setGender(Gender.MALE);
-                                        break;
-                                case 'F':
-                                        registrationDTO.setGender(Gender.FEMALE);
+                        if(registrationDTO.validateGender(gender)) {
+                                switch (gender) {
+                                        case 'M':
+                                                registrationDTO.setGender(Gender.MALE);
+                                                break;
+                                        case 'F':
+                                                registrationDTO.setGender(Gender.FEMALE);
+                                }
+
+                        }
+                        else{
+                                throw new BankingSystemLoginException("you are not entered the proper input \n");
                         }
 //                        System.out.println(registrationDTO);
                 }

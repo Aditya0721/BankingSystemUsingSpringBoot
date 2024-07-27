@@ -1,6 +1,7 @@
 import org.login.LoginConfig;
 import org.login.controller.LogInController;
 import org.login.dto.LoginDTO;
+import org.login.exceptions.BankingSystemLoginException;
 import org.registration.RegistrationConfig;
 import org.registration.regisstrationController.RegistrationController;
 import org.registration.registarationDTO.Gender;
@@ -16,20 +17,20 @@ import java.util.Scanner;
 public class Application {
 
 
-    public static void loginUI(LoginDTO loginDTO){
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Enter your name: ");
-        String name = sc.nextLine();
-        System.out.println("Enter your password: ");
-        String password = sc.nextLine();
-
-        loginDTO.setUsername(name);
-        loginDTO.setPassword(password);
-    }
 
     public static void main(String[] args) {
+
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(ApplicationConfig.class);
         Environment env = applicationContext.getEnvironment();
+        LoginDTO loginDTO = applicationContext.getBean(LoginDTO.class);
+        LogInController logInController = applicationContext.getBean(LogInController.class); // to call the method of loginController
+        logInController.loginUI(loginDTO);
+        try{
+            logInController.logIn(loginDTO);
+        }
+        catch(BankingSystemLoginException be){
+            System.out.println(be.getMessage());
+        }
 
         RegistrationDTO registrationDTO = applicationContext.getBean(RegistrationDTO.class);
         RegistrationController registrationController = applicationContext.getBean(RegistrationController.class);
@@ -89,13 +90,8 @@ public class Application {
             registrationController.getUserData(registrationDTO);
         }
 
-        LoginDTO loginDTO = new LoginDTO();
+        //LoginDTO loginDTO = new LoginDTO();
 
-        loginUI(loginDTO);
-
-        LogInController logInController = applicationContext.getBean(LogInController.class);
-
-        logInController.logIn(loginDTO);
 
         System.out.println("Update your new password");
         String updatePassword = sc.nextLine();

@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration;
 //@Configuration : The Java configuration class is marked with this annotation. This annotation identifies this as a configuration class,
 // and it’s expected to contain details on beans that are to be created in the Spring application context.
 @Configuration
-@ComponentScan(basePackages = {"org.login.service", "org.login.controller", "org.login.repository"})
+@ComponentScan(basePackages = {"org.login.service", "org.login.controller", "org.login.repository","org.login.dto"})
 public class LoginConfig {
 
     // @Bean : This annotation is used to declare a bean. The methods of configuration class that creates an instance of the desired bean are annotated with this annotation.

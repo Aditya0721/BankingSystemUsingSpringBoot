@@ -11,6 +11,7 @@ import java.util.Map;
 @Repository
 public class LoginRepositoryImpl implements LoginRepository {
 
+    //calling these methods in the service implementation class
     @Override
     public LoginDTO getUserInfoFromUsername(LoginDTO loginDTOFromServiceLayer){
 
@@ -30,6 +31,7 @@ public class LoginRepositoryImpl implements LoginRepository {
         return loginDTOFromPersistenceLayer;
     }
 
+    //calling this method in service
     public void updatePasswordUsingUsername(LoginDTO loginDTO){
         Map<String, String> database = new HashMap<String, String>();
 

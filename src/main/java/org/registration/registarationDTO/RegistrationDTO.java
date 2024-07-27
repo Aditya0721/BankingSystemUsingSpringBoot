@@ -1,5 +1,6 @@
 package org.registration.registarationDTO;
 
+import org.login.exceptions.BankingSystemLoginException;
 import org.registration.exception.BankingSystemRegistrationException;
 import org.springframework.stereotype.Component;
 
@@ -76,7 +77,7 @@ public class RegistrationDTO {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(Gender gender) throws BankingSystemLoginException {
         this.gender = gender;
     }
 
@@ -90,5 +91,12 @@ public class RegistrationDTO {
         else{
             return false;
         }
+    }
+
+    public boolean validateGender(char c){
+        if (c == 'M' || c == 'F') {
+            return true;
+        }
+        return false;
     }
 }
